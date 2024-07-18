@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "chat_history")
@@ -24,5 +23,6 @@ public class ChatHistory {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 
 }

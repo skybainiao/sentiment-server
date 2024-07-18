@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
@@ -20,17 +19,9 @@ public class User {
     private Long id;
     private String username;
     private String email;
+    private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<ChatHistory> chatHistories;
-
-    public void setChatHistories(List<ChatHistory> chatHistories) {
-        this.chatHistories = chatHistories;
-    }
-
-    public List<ChatHistory> getChatHistories() {
-        return chatHistories;
-    }
-
 }
