@@ -1,5 +1,6 @@
 package sep3.sentiment.controller;
 
+import jakarta.persistence.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ public class UserController {
 
     @PostMapping
     public User createUser(@RequestBody User user) {
+        System.out.println("Received user: " + user);
         return userService.createUser(user);
     }
 
@@ -40,11 +42,11 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
-        User foundUser = userService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-        if (foundUser != null) {
+        try {
+            User foundUser = userService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
             return ResponseEntity.ok(foundUser);
-        } else {
-            return ResponseEntity.status(401).build();
+        } catch (NonUniqueResultException e) {
+            return ResponseEntity.status(500).body(null);
         }
     }
 }

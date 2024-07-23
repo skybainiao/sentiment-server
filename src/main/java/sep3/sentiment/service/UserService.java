@@ -1,5 +1,6 @@
 package sep3.sentiment.service;
 
+import jakarta.persistence.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sep3.sentiment.model.User;
@@ -31,6 +32,13 @@ public class UserService {
     }
 
     public User findByUsernameAndPassword(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, password);
+        List<User> users = userRepository.findByUsernameAndPassword(username, password);
+        if (users.size() == 1) {
+            return users.get(0);
+        } else if (users.isEmpty()) {
+            return null;
+        } else {
+            throw new NonUniqueResultException("Query did not return a unique result: " + users.size() + " results were returned");
+        }
     }
 }
