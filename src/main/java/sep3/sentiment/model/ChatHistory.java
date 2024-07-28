@@ -1,5 +1,6 @@
 package sep3.sentiment.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,9 +21,7 @@ public class ChatHistory {
     private String message;
     private LocalDateTime timestamp;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-
+    @Column(name = "user_id")
+    @JsonProperty("user_id")
+    private Long userId;
 }

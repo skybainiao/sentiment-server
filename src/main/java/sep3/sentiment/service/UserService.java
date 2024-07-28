@@ -31,6 +31,10 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
     public User findByUsernameAndPassword(String username, String password) {
         List<User> users = userRepository.findByUsernameAndPassword(username, password);
         if (users.size() == 1) {

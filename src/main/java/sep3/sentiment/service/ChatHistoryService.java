@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sep3.sentiment.model.ChatHistory;
 import sep3.sentiment.repository.ChatHistoryRepository;
+import sep3.sentiment.repository.UserRepository;
 
 import java.util.List;
 
@@ -13,7 +14,19 @@ public class ChatHistoryService {
     @Autowired
     private ChatHistoryRepository chatHistoryRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public ChatHistory createChatHistory(ChatHistory chatHistory) {
+        if (chatHistory.getUserId() == null) {
+            throw new IllegalArgumentException("userId must not be null");
+        }
+
+        // 验证 userId 是否存在（如果需要）
+        if (!userRepository.existsById(chatHistory.getUserId())) {
+            throw new IllegalArgumentException("User not found");
+        }
+
         return chatHistoryRepository.save(chatHistory);
     }
 
