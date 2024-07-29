@@ -45,4 +45,7 @@ public class UserService {
             throw new NonUniqueResultException("Query did not return a unique result: " + users.size() + " results were returned");
         }
     }
+
+
+
 }

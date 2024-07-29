@@ -1,11 +1,9 @@
 package sep3.sentiment.service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sep3.sentiment.model.ChatHistory;
 import sep3.sentiment.repository.ChatHistoryRepository;
 import sep3.sentiment.repository.UserRepository;
-
 import java.util.List;
 
 @Service
@@ -21,12 +19,9 @@ public class ChatHistoryService {
         if (chatHistory.getUserId() == null) {
             throw new IllegalArgumentException("userId must not be null");
         }
-
-        // 验证 userId 是否存在（如果需要）
         if (!userRepository.existsById(chatHistory.getUserId())) {
             throw new IllegalArgumentException("User not found");
         }
-
         return chatHistoryRepository.save(chatHistory);
     }
 
@@ -41,4 +36,7 @@ public class ChatHistoryService {
     public void deleteChatHistory(Long id) {
         chatHistoryRepository.deleteById(id);
     }
+
+
+
 }

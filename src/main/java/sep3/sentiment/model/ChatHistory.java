@@ -18,7 +18,8 @@ public class ChatHistory {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String message;
+    private String userMessage;
+    private String botMessage;
     private LocalDateTime timestamp;
 
     @Column(name = "user_id")
